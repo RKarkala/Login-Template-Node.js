@@ -1,3 +1,1 @@
-MongoDB hosted by MLAB
-Hosting by Heroku
-No encryption
+Login app using MLab and Heroku. No encryption.
