@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Log In
+  a(href = '/signup') SignUp
+  form(action="/", method="POST")
+    | Username:
+    input(type="text", name="user") 
+    br
+    | Password:
+    input(type="password", name="pswd")
+    br
+    input(type="submit", value="Submit", onClick="display()")
