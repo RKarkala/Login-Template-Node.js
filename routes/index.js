@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var bcrypt = require('bcryptjs');
 
+
+
+ var salt = bcrypt.genSaltSync(10);
+ module.exports = salt;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.resolve(__dirname+'/../views/login.html'));
@@ -16,8 +21,6 @@ router.post('/', function(req, res){
     var url = process.env.MLABURI;
   var user = req.body.user;
   var pass = req.body.pswd;
-  console.log(user);
-  console.log(pass);
   // Use connect method to connect to the Server
   if(user.length==0 || pass.length==0){
       res.sendFile(path.resolve(__dirname+'/../views/responses/blanklog.html'));
@@ -31,14 +34,21 @@ router.post('/', function(req, res){
       // Get the documents collection
       var collection = db.collection('login');
       //Create some users
-
-    collection.find({username: user, password: pass}).toArray(function (err, result) {
+    collection.find({username: user}).toArray(function (err, result) {
     if (err) {
       res.send(err);
     } else if (result.length) {
-      res.sendFile(path.resolve(__dirname+'/../views/responses/login_success.html'));
-    } else {
-      res.sendFile(path.resolve(__dirname+'/../views/responses/incorrect.html'));
+        console.log(result[0].password);
+        var q = bcrypt.compareSync(pass, result[0].password);
+        console.log(q);
+        if(q===true){
+            res.sendFile(path.resolve(__dirname+'/../views/responses/login_success.html'));
+        }else{
+            res.sendFile(path.resolve(__dirname+'/../views/responses/incorrect.html'));
+        }
+
+    }else{
+
     }
     //Close connection
     db.close();

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.sendFile(path.resolve(__dirname+'/../views/signup.html'));
@@ -27,13 +28,16 @@ router.post('/', function(req, res, next) {
     }
     else
     MongoClient.connect(url, function(err, db) {
+
+        var passtosave = bcrypt.hashSync(pass, salt);
+
         if (err) {
             res.send('Unable to connect to the mongoDB server. Error:', err);
         } else {
             var collection = db.collection('login');
             var user1 = {
                     username: user,
-                    password: pass
+                    password: passtosave
                 };
             collection.find({
                     username: user
