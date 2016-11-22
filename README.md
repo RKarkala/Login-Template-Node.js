@@ -1,1 +1,1 @@
-Login app using MLab and Heroku. No encryption.
+Login app using MLab,Heroku,MongoDB, and bcrypt
