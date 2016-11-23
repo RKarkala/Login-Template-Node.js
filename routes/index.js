@@ -33,12 +33,12 @@ router.post('/', function(req, res){
 
       // Get the documents collection
       var collection = db.collection('login');
-      //Create some users
+
     collection.find({username: user}).toArray(function (err, result) {
+
     if (err) {
       res.send(err);
     } else if (result.length) {
-        console.log(result[0].password);
         var q = bcrypt.compareSync(pass, result[0].password);
         console.log(q);
         if(q===true){
@@ -48,7 +48,7 @@ router.post('/', function(req, res){
         }
 
     }else{
-
+        res.sendFile(path.resolve(__dirname+'/../views/responses/incorrect.html'));
     }
     //Close connection
     db.close();
