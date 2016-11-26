@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.sendFile(path.resolve(__dirname+'/../views/signup.html'));
+    res.render("signup");
 });
 router.post('/', function(req, res, next) {
     var mongodb = require('mongodb');
@@ -21,10 +21,10 @@ router.post('/', function(req, res, next) {
     module.exports = good;
     // Use connect method to connect to the Server
     if(pass.length==0 || user.length==0 || conf.length==0){
-            res.sendFile(path.resolve(__dirname+'/../views/responses/blanksign.html'));
+        res.render("responses/blanksign");
     }
     else if(pass!==conf){
-            res.sendFile(path.resolve(__dirname+'/../views/responses/pass_not_match.html'));
+            res.render("responses/pass_not_match");
     }
     else
     MongoClient.connect(url, function(err, db) {
@@ -45,14 +45,15 @@ router.post('/', function(req, res, next) {
                 if (err) {
                         res.send(err);
                 } else if (result.length) {
-                        res.sendFile(path.resolve(__dirname+'/../views/responses/user_exists.html'));
+                    res.render("responses/user_exists");
 
                 } else {
                     collection.insert([user1], function(err, result) {
                             if (err) {
                                 res.send(err);
                             }   else {
-                                res.sendFile(path.resolve(__dirname+'/../views/responses/acc_created.html'));
+                                res.render("responses/acc_created");
+                                
 
                             }
                     });

@@ -23,7 +23,7 @@ app.use('/users', users);
 app.use('/signup', signup);
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 //lets require/import the mongodb native drivers.
 
