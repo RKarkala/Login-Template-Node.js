@@ -1,5 +1,3 @@
-Login app using MongoDB, Express, and Bcrypt.
+Login app using MongoDB, Express, Bcrypt, and EJS.
 
-To Setup: Create an environmental named MLABURI and set it to your db url
-
-Changes to be made: Alerts through flash rather than a html page
+To Setup: Create an environmental named MLABURI and set it to your database url

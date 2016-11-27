@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -31,6 +32,23 @@
                         <a href="signup">New user? Click here to sign up</a>
                     </p>
                 </div>
+                <% if(blank.length > 0) { %>
+                <div class="alert alert-danger alert-dismissable col-xs-6 col-xs-offset-3">
+                  <strong>Error!</strong> All Fields Are Required.
+                </div>
+                <% } %>
+                <% if(success.length > 0) { %>
+                    <div class="alert alert-success alert-dismissable col-xs-6 col-xs-offset-3">
+                      <strong>Success!</strong> Succesfully Logged In.
+                    </div>
+                <% } %>
+                <% if(incorrect.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissable col-xs-6 col-xs-offset-3">
+                      <strong>Error!</strong> Invalid Username Or Password.
+                    </div>
+                <% } %>
+
+
 
         </form>
     </div>

@@ -36,6 +36,27 @@
                     </p>
 
                 </div>
+                <% if(blank.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissable col-xs-6 col-xs-offset-3">
+                        <strong>Error!</strong> All Fields Are Required.
+                    </div>
+                <% } %>
+                <% if(match.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissable col-xs-6 col-xs-offset-3">
+                      <strong>Error!</strong> Passwords Don&#39;t Match.
+                    </div>
+                <% } %>
+
+                <% if(exists.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissable col-xs-6 col-xs-offset-3">
+                      <strong>Error!</strong> Username Already Exists.
+                    </div>
+                <% } %>
+                <% if(create.length > 0) { %>
+                    <div class="alert alert-success alert-dismissable col-xs-6 col-xs-offset-3">
+                      <strong>Success!</strong> Account Created.
+                    </div>
+                <% } %>
 
 
             </div>

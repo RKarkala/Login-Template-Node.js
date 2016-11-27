@@ -5,7 +5,12 @@ var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render("signup");
+    res.render("signup", {
+        blank:'',
+        match:'',
+        exists:'',
+        create:''
+    });
 });
 router.post('/', function(req, res, next) {
     var mongodb = require('mongodb');
@@ -21,10 +26,20 @@ router.post('/', function(req, res, next) {
     module.exports = good;
     // Use connect method to connect to the Server
     if(pass.length==0 || user.length==0 || conf.length==0){
-        res.render("responses/blanksign");
+        res.render("signup", {
+            blank:'blank',
+            match:'',
+            exists:'',
+            create:''
+        });
     }
     else if(pass!==conf){
-            res.render("responses/pass_not_match");
+        res.render("signup", {
+            blank:'',
+            match:'match',
+            exists:'',
+            create:''
+        });
     }
     else
     MongoClient.connect(url, function(err, db) {
@@ -45,15 +60,25 @@ router.post('/', function(req, res, next) {
                 if (err) {
                         res.send(err);
                 } else if (result.length) {
-                    res.render("responses/user_exists");
+                    res.render("signup", {
+                        blank:'',
+                        match:'',
+                        exists:'exists',
+                        create:''
+                    });
 
                 } else {
                     collection.insert([user1], function(err, result) {
                             if (err) {
                                 res.send(err);
                             }   else {
-                                res.render("responses/acc_created");
-                                
+                                res.render("signup", {
+                                    blank:'',
+                                    match:'',
+                                    exists:'',
+                                    create:'create'
+                                });
+
 
                             }
                     });

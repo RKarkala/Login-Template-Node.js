@@ -9,7 +9,11 @@ var bcrypt = require('bcryptjs');
  module.exports = salt;
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render("login");
+    res.render("login", {
+        blank: '',
+        incorrect: '',
+        success: ''
+    });
 
 });
 router.post('/', function(req, res){
@@ -24,7 +28,11 @@ router.post('/', function(req, res){
   var pass = req.body.pswd;
   // Use connect method to connect to the Server
   if(user.length==0 || pass.length==0){
-      res.render("responses/blanklog");
+      res.render("login", {
+          blank:'blank',
+          incorrect:'',
+          success:''
+      });
   }else
   MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -43,13 +51,25 @@ router.post('/', function(req, res){
         var q = bcrypt.compareSync(pass, result[0].password);
         console.log(q);
         if(q===true){
-            res.render("responses/login_success");
+            res.render("login", {
+                blank:'',
+                incorrect:'',
+                success:'success'
+            });
         }else{
-            res.render("responses/incorrect");
+            res.render("login", {
+                blank:'',
+                incorrect:'incorrect',
+                success:''
+            });
         }
 
     }else{
-        res.render("responses/incorrect");
+        res.render("login", {
+            blank:'',
+            incorrect:'incorrect',
+            success:''
+        });
     }
     //Close connection
     db.close();
